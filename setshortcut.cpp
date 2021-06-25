@@ -20,6 +20,7 @@ SetShortcut::~SetShortcut()
 void SetShortcut::showCurrentShortcut(QKeySequence keySequence)
 {
     ui->label->setText(QString(tr("Current: ") + keySequence.toString()));
+    ui->keySequenceEdit->clear();
 }
 
 void SetShortcut::on_buttonBox_accepted()
