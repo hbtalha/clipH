@@ -272,8 +272,10 @@ void MainWindow::on_actionAuto_start_triggered()
         {
             QTextStream stream(&file);
             stream << "[Desktop Entry]" << Qt::endl;
-            stream << "Exec=" << QCoreApplication::applicationFilePath() << " --autostart" << Qt::endl;
+            stream << "Name=clipH" << Qt::endl;
+            stream << "Icon=clipH" << Qt::endl;
             stream << "Type=Application" << Qt::endl;
+            stream << "Exec=" << QCoreApplication::applicationFilePath() << Qt::endl;
         }
     }
 }
