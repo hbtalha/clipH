@@ -28,8 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFocusPolicy(Qt::ClickFocus);
     this->setFixedSize(this->size());
 
-    ui->actionAuto_start->setChecked(true);
-    on_actionAuto_start_triggered();
+    loadAndSetSettings();
 
     clipboard = QApplication::clipboard();
     connect(clipboard, &QClipboard::dataChanged, this, &MainWindow::clipboardChanged);
@@ -131,7 +130,7 @@ void MainWindow::setTextToClipboard(QListWidgetItem *item)
 
 void MainWindow::firstTimeUser()
 {
-    bool firstTime =  settings.value("first-time", "true").toBool();
+    bool firstTime = settings.value("first-time", "true").toBool();
 
     if(firstTime)
     {
@@ -251,6 +250,16 @@ void MainWindow::updateFocusWindows()
     lastWindow = getCurrentWindow();
 }
 
+void MainWindow::loadAndSetSettings()
+{
+    bool autoStart   =  settings.value("auto_star",    "true").toBool();
+    bool startHidden =  settings.value("start_hidden", "false").toBool();
+
+    ui->actionAuto_start->setChecked(autoStart);
+    ui->actionStart_Hidden->setChecked(startHidden);
+
+    on_actionAuto_start_triggered();
+}
 
 void MainWindow::on_actionAuto_start_triggered()
 {
@@ -277,6 +286,17 @@ void MainWindow::on_actionAuto_start_triggered()
             stream << "Type=Application" << Qt::endl;
             stream << "Exec=" << QCoreApplication::applicationFilePath() << Qt::endl;
         }
+
+        settings.setValue("auto_start", "true");
     }
+    else
+        settings.setValue("auto_start", "false");
 }
 
+void MainWindow::on_actionStart_Hidden_triggered()
+{
+    if(ui->actionStart_Hidden->isChecked())
+        settings.setValue("start_hidden", "true");
+    else
+        settings.setValue("start_hidden", "false");
+}

@@ -38,9 +38,11 @@ int main(int argc, char *argv[])
 
     XSetErrorHandler(ErrorHandler);
 
+
     QCoreApplication::setOrganizationName("HBatalha");
     QCoreApplication::setApplicationName("clipH");
     QSettings::setDefaultFormat(QSettings::IniFormat);
+    QSettings settings;
 
     SingleInstance app("cliphsingleinstanceuniquekey");
 
@@ -53,7 +55,6 @@ int main(int argc, char *argv[])
         errorMessage.addButton(QMessageBox::Ok);
         errorMessage.setWindowTitle(QObject::tr("Error"));
 
-        QSettings settings;
         QString shortcut = settings.value("shortcut", "Alt+H").toString();
 
         errorMessage.setText(QObject::tr("clipH already running"));
@@ -67,8 +68,14 @@ int main(int argc, char *argv[])
     }
     else
     {
+        bool firstTime   =  settings.value("first-time",        "true").toBool();
+        bool startHidden =  settings.value("start_hidden",  "false").toBool();
+
         MainWindow w;
-        w.show();
+
+        if(firstTime || ! startHidden)
+            w.show();
+
         return a.exec();
     }
 }

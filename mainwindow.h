@@ -74,6 +74,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_actionStart_Hidden_triggered();
+
 private:
     Ui::MainWindow *ui;
 
@@ -83,6 +85,7 @@ private:
     void addImage(QImage image);
     void setTextToClipboard(QListWidgetItem* item);
     void firstTimeUser();
+    void loadAndSetSettings();
 
 
     QClipboard* clipboard;

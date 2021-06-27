@@ -48,6 +48,7 @@
      <string>Options</string>
     </property>
     <addaction name="actionAuto_start"/>
+    <addaction name="actionStart_Hidden"/>
     <addaction name="actionSet_Show_Shortcut"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -70,6 +71,14 @@
    </property>
    <property name="text">
     <string>Auto-start</string>
+   </property>
+  </action>
+  <action name="actionStart_Hidden">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Start Hidden</string>
    </property>
   </action>
  </widget>
