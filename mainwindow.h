@@ -41,12 +41,6 @@ static QPalette darkTheme()
     return darkPalette;
 }
 
-//PlatformNativeInterface *platformNativeInterface()
-//{
-//    static X11Platform platform;
-//    return &platform;
-//}
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
