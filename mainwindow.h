@@ -23,8 +23,8 @@ static QPalette darkTheme()
 
     darkPalette.setColor(QPalette::Window, darkColor);
     darkPalette.setColor(QPalette::WindowText, Qt::white);
-    darkPalette.setColor(QPalette::Base, QColor(0,0,0));
-    darkPalette.setColor(QPalette::AlternateBase, darkColor);
+    darkPalette.setColor(QPalette::Base, QColor(30,30,30));
+    darkPalette.setColor(QPalette::AlternateBase, QColor(40,40,40));
     darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
     darkPalette.setColor(QPalette::ToolTipText, Qt::white);
     darkPalette.setColor(QPalette::Text, Qt::white);
