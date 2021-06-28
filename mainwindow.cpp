@@ -46,8 +46,13 @@ MainWindow::MainWindow(QWidget *parent)
     QShortcut * enterShortcut = new QShortcut(QKeySequence("return"), this);
     connect(enterShortcut, &QShortcut::activated, qApp, [this]()
     {
-        if(ui->listWidget->count() > 0)
-            setTextToClipboard(ui->listWidget->item(0));
+        if(ui->listWidget->count() > 0 )
+        {
+            if(ui->listWidget->selectedItems().count() > 0)
+                setTextToClipboard(ui->listWidget->selectedItems().at(0));
+            else
+                setTextToClipboard(ui->listWidget->item(0));
+        }
         else
             this->hide();
     });
@@ -109,11 +114,13 @@ void MainWindow::setupList()
 
 void MainWindow::setTextToClipboard(QListWidgetItem *item)
 {
+    QListWidgetItem* it = item;
     isAddingBlocked = true;
-
-    QListWidgetItem* it = ui->listWidget->takeItem(ui->listWidget->row(item));
-
-    ui->listWidget->insertItem(0, it);
+    if(ui->listWidget->row(item) != 0)
+    {
+        it = ui->listWidget->takeItem(ui->listWidget->row(item));
+        ui->listWidget->insertItem(0, it);
+    }
 
     if(item->data(Qt::DecorationRole).isNull())
         clipboard->setText(it->text());
