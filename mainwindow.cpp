@@ -57,6 +57,9 @@ MainWindow::MainWindow(QWidget *parent)
             this->hide();
     });
 
+    QShortcut * escShortcut = new QShortcut(QKeySequence(Qt::Key_Escape), this);
+    connect(escShortcut, &QShortcut::activated, this, &MainWindow::hide);
+
     connect(qApp, &QApplication::focusChanged, [this]
     {
         if(! this->isActiveWindow())
