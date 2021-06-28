@@ -116,9 +116,9 @@ void MainWindow::setTextToClipboard(QListWidgetItem *item)
     ui->listWidget->insertItem(0, it);
 
     if(item->data(Qt::DecorationRole).isNull())
-        clipboard->setText(item->text());
+        clipboard->setText(it->text());
     else
-        clipboard->setPixmap(item->icon().pixmap(1920, 1080));
+        clipboard->setPixmap(it->icon().pixmap(1920, 1080));
 
     this->hide();
 
