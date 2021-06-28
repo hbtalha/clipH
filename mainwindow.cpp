@@ -150,8 +150,9 @@ void MainWindow::firstTimeUser()
         ui->listWidget->hide();
 
         ui->label->setText("clipH\n\n"
-                           "alt+h - Show clipH\n"
-                           "Press Enter to copy the item on top");
+                           "alt+h - Show clipH\n\n"
+                           "Press Enter to copy the item on top\n"
+                           "(if no item is selected item on top is copied)");
         ui->label->setAlignment(Qt::AlignmentFlag::AlignCenter);
         ui->label->setStyleSheet("font: 12pt;");
     }
