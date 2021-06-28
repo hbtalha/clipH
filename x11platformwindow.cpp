@@ -172,8 +172,7 @@ void X11PlatformWindow::raise()
 
 void X11PlatformWindow::pasteClipboard()
 {
-    sendKeyPress(XK_Shift_L, XK_Insert);
-//    sendKeyPress(XK_Shift_L, XK_Insert);
+    sendKeyPress(XK_Control_L, XK_V);
 }
 
 void X11PlatformWindow::copy()
