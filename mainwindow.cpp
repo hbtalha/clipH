@@ -96,8 +96,9 @@ void MainWindow::setupList()
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::setTextToClipboard);
 
     ui->listWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->listWidget->setStyleSheet("QListWidget::item {height: 50px; background-color: gray; } "
-                                  "QListWidget {background-color: rgb(22,22,24); }");
+    ui->listWidget->setStyleSheet("QListWidget::item {height: 50px; background-color: #606060; }"
+                                  "QListWidget {background-color: rgb(22,22,24);}"
+                                  "QListWidget::item:selected{ background-color: #3498DB }");
     ui->listWidget->setAlternatingRowColors(true);
     ui->listWidget->setWrapping(false);
     ui->listWidget->setSpacing(3);
