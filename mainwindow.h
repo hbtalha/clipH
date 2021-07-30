@@ -93,5 +93,7 @@ private:
     bool isAddingBlocked;
     bool shouldHide;
     unsigned long lastWindow;
+
+    void showEvent(QShowEvent*) override;
 };
 #endif // MAINWINDOW_H

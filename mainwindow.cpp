@@ -313,3 +313,10 @@ void MainWindow::on_actionStart_Hidden_triggered()
     else
         settings.setValue("start_hidden", "false");
 }
+
+void MainWindow::showEvent(QShowEvent *)
+{
+    ui->listWidget->scrollToTop();
+    if(ui->listWidget->count() > 0)
+        ui->listWidget->setCurrentRow(0);
+}
