@@ -22,26 +22,28 @@ unix:{
 }
 
 SOURCES += \
-    customkeysequenceedit.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    qhotkey.cpp \
-    qhotkey_x11.cpp \
-    setshortcut.cpp \
-    singleinstance.cpp \
-    x11platformwindow.cpp
+    src/customkeysequenceedit.cpp \
+    src/main.cpp \
+    src/mainwindow.cpp \
+    src/qhotkey.cpp \
+    src/qhotkey_x11.cpp \
+    src/setshortcut.cpp \
+    src/singleinstance.cpp \
+    src/x11platformwindow.cpp
+
 
 HEADERS += \
-    clipboardmanagermodel.h \
-    customkeysequenceedit.h \
-    mainwindow.h \
-    platformwindow.h \
-    qhotkey.h \
-    qhotkey_p.h \
-    setshortcut.h \
-    singleinstance.h \
-    sleeptimer.h \
-    x11platformwindow.h
+    src/clipboardmanagermodel.h \
+    src/customkeysequenceedit.h \
+    src/mainwindow.h \
+    src/platformwindow.h \
+    src/qhotkey.h \
+    src/qhotkey_p.h \
+    src/setshortcut.h \
+    src/singleinstance.h \
+    src/sleeptimer.h \
+    src/x11platformwindow.h
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -49,8 +51,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
-    mainwindow.ui \
-    setshortcut.ui
+    src/mainwindow.ui \
+    src/setshortcut.ui
 
 DISTFILES +=
 
