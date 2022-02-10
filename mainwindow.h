@@ -94,6 +94,7 @@ private:
     bool shouldHide;
     unsigned long lastWindow;
 
+    void closeEvent(QCloseEvent *event) override;
     void showEvent(QShowEvent*) override;
 };
 #endif // MAINWINDOW_H

@@ -9,6 +9,7 @@
 #include <fstream>
 #include <QFile>
 #include <QDir>
+#include <QCloseEvent>
 #include <unistd.h>
 #include <X11/Xutil.h>
 #include <X11/Xlib.h>
@@ -252,7 +253,7 @@ void MainWindow::on_actionSet_Show_Shortcut_triggered()
 
 void MainWindow::on_actionQuit_triggered()
 {
-    this->close();
+    qApp->quit();
 }
 
 void MainWindow::updateFocusWindows()
@@ -312,6 +313,12 @@ void MainWindow::on_actionStart_Hidden_triggered()
         settings.setValue("start_hidden", "true");
     else
         settings.setValue("start_hidden", "false");
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    this->hide();
+    event->ignore();
 }
 
 void MainWindow::showEvent(QShowEvent *)
