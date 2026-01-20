@@ -46,7 +46,7 @@
   <customwidget>
    <class>CustomKeySequenceEdit</class>
    <extends>QLineEdit</extends>
-   <header location="global">customkeysequenceedit.h</header>
+   <header>src/customkeysequenceedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
