@@ -20,11 +20,7 @@
 #ifndef X11PLATFORMWINDOW_H
 #define X11PLATFORMWINDOW_H
 
-#include "qhotkey.h"
-
 #include <X11/Xlib.h>
-
-#include <memory>
 
 class AppConfig;
 class QWidget;

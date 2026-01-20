@@ -1,8 +1,6 @@
 #include "setshortcut.h"
 #include "ui_setshortcut.h"
 
-#include "customkeysequenceedit.h"
-
 SetShortcut::SetShortcut(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SetShortcut)

@@ -6,7 +6,6 @@
 #include <QDebug>
 #include <QTimer>
 #include <QShortcut>
-#include <fstream>
 #include <QFile>
 #include <QDir>
 #include <QCloseEvent>
