@@ -12,7 +12,6 @@ CONFIG += c++11
 
 unix:{
 
-    QT       += x11extras
     LIBS += -lX11
 
     # suppress the default RPATH if you wish

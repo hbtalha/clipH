@@ -20,6 +20,7 @@
 #ifndef X11PLATFORMWINDOW_H
 #define X11PLATFORMWINDOW_H
 
+#include <QGuiApplication>
 #include <X11/Xlib.h>
 
 class AppConfig;
@@ -45,6 +46,11 @@ private:
     void sendKeyPress(int modifier, int key);
 
     Window m_window;
+
+    bool isPlatformX11;
+
+    QNativeInterface::QX11Application *x11Application;
+
 };
 
 Window getCurrentWindow();

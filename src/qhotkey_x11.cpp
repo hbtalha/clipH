@@ -1,8 +1,8 @@
 #include "qhotkey.h"
 #include "qhotkey_p.h"
 #include <QDebug>
-#include <QX11Info>
 #include <QThreadStorage>
+#include <QGuiApplication>
 #include <QTimer>
 #include <X11/Xlib.h>
 #include <xcb/xcb.h>
@@ -16,7 +16,7 @@ class QHotkeyPrivateX11 : public QHotkeyPrivate
 {
 public:
     // QAbstractNativeEventFilter interface
-    bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) Q_DECL_OVERRIDE;
+    bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) override;
 
 protected:
     // QHotkeyPrivate interface
@@ -31,6 +31,8 @@ private:
     static const quint32 validModsMask;
     xcb_key_press_event_t prevHandledEvent;
     xcb_key_press_event_t prevEvent;
+
+    QNativeInterface::QX11Application* x11Application = qGuiApp->nativeInterface<QNativeInterface::QX11Application>();
 
     static QString formatX11Error(Display *display, int errorCode);
 
@@ -53,13 +55,13 @@ NATIVE_INSTANCE(QHotkeyPrivateX11)
 
 bool QHotkeyPrivate::isPlatformSupported()
 {
-    return QX11Info::isPlatformX11();
+    return qGuiApp->nativeInterface<QNativeInterface::QX11Application>();
 }
 
 const QVector<quint32> QHotkeyPrivateX11::specialModifiers = {0, Mod2Mask, LockMask, (Mod2Mask | LockMask)};
 const quint32 QHotkeyPrivateX11::validModsMask = ShiftMask | ControlMask | Mod1Mask | Mod4Mask;
 
-bool QHotkeyPrivateX11::nativeEventFilter(const QByteArray &eventType, void *message, long *result)
+bool QHotkeyPrivateX11::nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result)
 {
     Q_UNUSED(eventType)
     Q_UNUSED(result)
@@ -129,9 +131,9 @@ quint32 QHotkeyPrivateX11::nativeKeycode(Qt::Key keycode, bool &ok)
             return 0;
     }
 
-    if(QX11Info::isPlatformX11())
+    if(x11Application)
     {
-        auto res = XKeysymToKeycode(QX11Info::display(), keysym);
+        auto res = XKeysymToKeycode(x11Application->display(), keysym);
         if(res != 0)
             ok = true;
         return res;
@@ -156,8 +158,8 @@ quint32 QHotkeyPrivateX11::nativeModifiers(Qt::KeyboardModifiers modifiers, bool
 
 bool QHotkeyPrivateX11::registerShortcut(QHotkey::NativeShortcut shortcut)
 {
-    Display *display = QX11Info::display();
-    if(!display || !QX11Info::isPlatformX11())
+    Display *display = x11Application->display();
+    if(!display || !x11Application)
         return false;
 
     HotkeyErrorHandler errorHandler;
@@ -184,7 +186,7 @@ bool QHotkeyPrivateX11::registerShortcut(QHotkey::NativeShortcut shortcut)
 
 bool QHotkeyPrivateX11::unregisterShortcut(QHotkey::NativeShortcut shortcut)
 {
-    Display *display = QX11Info::display();
+    Display *display =x11Application->display();
     if(!display)
         return false;
 

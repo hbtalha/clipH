@@ -21,7 +21,6 @@
 #include "x11platformwindow.h"
 
 #include <unistd.h>
-#include <QX11Info>
 #include <QTimer>
 
 #include <X11/Xlib.h>
@@ -108,10 +107,12 @@ public:
 
 Window getCurrentWindow()
 {
-    if (!QX11Info::isPlatformX11())
+    auto*x11Application = qGuiApp->nativeInterface<QNativeInterface::QX11Application>();
+
+    if (!x11Application)
         return 0L;
 
-    auto display = QX11Info::display();
+    auto display = x11Application->display();
     XSync(display, False);
 
     static Atom atomWindow = XInternAtom(display, "_NET_ACTIVE_WINDOW", true);
@@ -129,6 +130,7 @@ Window getCurrentWindow()
 X11PlatformWindow::X11PlatformWindow(Window winId)
     : m_window(winId)
 {
+    x11Application = qGuiApp->nativeInterface<QNativeInterface::QX11Application>();
 }
 
 
@@ -136,11 +138,11 @@ void X11PlatformWindow::raise()
 {
     Q_ASSERT( isValid() );
 
-    if (!QX11Info::isPlatformX11())
+    if (!x11Application)
         return;
 
 
-    auto display = QX11Info::display();
+    auto display = x11Application->display();
 
     XEvent e{};
     memset(&e, 0, sizeof(e));
@@ -218,12 +220,11 @@ void X11PlatformWindow::sendKeyPress(int modifier, int key)
 
     waitMs(50);
 
-    if (!QX11Info::isPlatformX11())
+    if (!x11Application)
         return;
 
-    auto display = QX11Info::display();
+    auto display = x11Application->display();
 
     const int modifierMask = (modifier == XK_Control_L) ? ControlMask : ShiftMask;
     simulateKeyPress(display, m_window, modifierMask, key);
-
 }
